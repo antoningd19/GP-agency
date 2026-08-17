@@ -507,29 +507,41 @@ header.site {
 .pack-stack-item:nth-child(2) { z-index: 2; }
 .pack-stack-item:nth-child(3) { z-index: 3; }
 
-/* ---- Offer strip (teaser compact, page d'accueil) ---- */
-.offer-strip {
-  display: flex;
-  border: 1.5px solid rgba(0,0,0,0.1);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.offer-item {
-  flex: 1;
-  padding: 28px 24px;
+/* ---- Offer stack (teaser scroll empilé, page d'accueil) ---- */
+.offer-stack {
   display: flex;
   flex-direction: column;
+  gap: 32px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.offer-stack-item {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.offer-stack-item:nth-child(1) { z-index: 1; }
+.offer-stack-item:nth-child(2) { z-index: 2; }
+.offer-stack-item:nth-child(3) { z-index: 3; }
+.offer-item {
+  background: var(--paper);
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 8px;
   text-align: center;
-  border-left: 1.5px solid rgba(0,0,0,0.1);
+  box-shadow: 0 30px 70px -24px rgba(0,0,0,0.28);
 }
-.offer-item:first-child { border-left: none; }
-.offer-item.featured { background: var(--ink); color: #fff; }
+.offer-item.featured { background: var(--ink); color: #fff; border-color: var(--ink); box-shadow: 0 30px 70px -20px rgba(0,33,255,0.3); }
 .offer-name { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); }
 .offer-item.featured .offer-name { color: var(--orange); }
-.offer-price { font-family: var(--font-display); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
-.offer-price small { font-size: 13px; font-weight: 400; color: rgba(0,0,0,0.5); }
+.offer-price { font-family: var(--font-display); font-size: 28px; font-weight: 500; letter-spacing: -0.01em; }
+.offer-price small { font-size: 14px; font-weight: 400; color: rgba(0,0,0,0.5); }
 .offer-item.featured .offer-price small { color: rgba(255,255,255,0.55); }
+.offer-hint { font-size: 13.5px; color: rgba(0,0,0,0.55); margin-top: 4px; }
+.offer-item.featured .offer-hint { color: rgba(255,255,255,0.65); }
 
 /* ---- FAQ ---- */
 .faq-item { border-top: 1px solid rgba(0,0,0,0.1); }
@@ -814,10 +826,6 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
 
   .logo-strip .container { flex-direction: column; align-items: flex-start; gap: 16px; }
   .logo-strip .marks { width: 100%; }
-
-  .offer-strip { flex-direction: column; }
-  .offer-item { border-left: none; border-top: 1.5px solid rgba(0,0,0,0.1); }
-  .offer-item:first-child { border-top: none; }
 }
 
 /* Point bleu qui suit le curseur */
