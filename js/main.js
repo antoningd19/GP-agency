@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Marquee: duplicate content so the loop is seamless
-  document.querySelectorAll('.marquee-track').forEach((track) => {
+  document.querySelectorAll('.marquee-track, .marks-track').forEach((track) => {
     track.innerHTML += track.innerHTML;
   });
 

@@ -309,10 +309,32 @@ header.site {
 }
 
 /* ---- Logo strip ---- */
-.logo-strip { padding: 40px 0; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06); }
-.logo-strip .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
-.logo-strip .caption { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(0,0,0,0.4); }
-.logo-strip .marks { display: flex; gap: 40px; flex-wrap: wrap; align-items: center; opacity: 0.5; font-family: var(--font-display); font-weight: 600; font-size: 18px; }
+.logo-strip { padding: 40px 0; border-top: 1px solid rgba(0,0,0,0.06); border-bottom: 1px solid rgba(0,0,0,0.06); overflow: hidden; }
+.logo-strip .container { display: flex; align-items: center; gap: 32px; }
+.logo-strip .caption { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: rgba(0,0,0,0.4); white-space: nowrap; flex-shrink: 0; }
+
+/* Bandeau défilant des types d'établissements, même logique que la marquee
+   du bandeau bleu en haut de page : une piste dupliquée en JS qui boucle en
+   continu, avec un fondu aux bords pour masquer la coupe. */
+.logo-strip .marks {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 40px), transparent 100%);
+}
+.marks-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 56px;
+  white-space: nowrap;
+  opacity: 0.5;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  animation: scroll-left 22s linear infinite;
+}
+.marks-track span { flex-shrink: 0; }
 
 /* ---- Cards / grids ---- */
 .grid { display: grid; gap: 24px; }
@@ -711,7 +733,7 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
     margin-top: 28px;
     flex-shrink: 0;
   }
-  .nav-links-cta .btn { width: 100%; padding: 18px 24px; font-size: 15px; }
+  .nav-links-cta .btn { width: 100%; padding: 18px 24px; font-size: 15px; color: #fff; }
 
   body.menu-open { overflow: hidden; }
 
@@ -725,6 +747,16 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
   .symptom-list { grid-template-columns: 1fr; }
   .founder { flex-direction: column; text-align: center; padding: 36px 28px; }
   .compare-table th, .compare-table td { padding: 14px 10px; font-size: 13px; }
+
+  /* Les 3 bulles de stats sous le hero : chacune se centrait indépendamment
+     selon la largeur de son propre libellé, ce qui décalait les badges les
+     uns des autres une fois empilés. On leur donne une largeur commune pour
+     que badges et textes démarrent tous à la même position. */
+  .hero-stats { flex-direction: column; align-items: center; gap: 22px; }
+  .stat { width: 100%; max-width: 300px; }
+
+  .logo-strip .container { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .logo-strip .marks { width: 100%; }
 }
 
 /* Point bleu qui suit le curseur */
