@@ -300,12 +300,65 @@ header.site {
   aspect-ratio: 16/7;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
 }
 .hero-visual::before {
   content: '';
   position: absolute; inset: 0;
   background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
   background-size: 22px 22px;
+}
+
+/* Mockups flottants illustrant l'automatisation (chat pré-séjour + relance devis) */
+.hero-mock {
+  position: relative;
+  z-index: 1;
+  width: 270px;
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: 0 30px 70px -24px rgba(0,0,0,0.28);
+  padding: 20px 22px;
+  text-align: left;
+}
+.hero-mock-chat { transform: rotate(-2.5deg); }
+.hero-mock-mail { transform: rotate(2deg); margin-top: 64px; }
+
+.hero-mock-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 14px;
+}
+.hero-mock-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.hero-mock-dot.orange { background: var(--orange); }
+.hero-mock-time { margin-left: auto; font-weight: 400; color: rgba(0,0,0,0.35); }
+
+.hero-mock-bubble {
+  font-size: 13.5px;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  max-width: 92%;
+}
+.hero-mock-bubble.guest { background: var(--light); color: var(--ink); border-bottom-left-radius: 4px; }
+.hero-mock-bubble.ai { background: var(--blue); color: #fff; margin: 0 0 0 auto; border-bottom-right-radius: 4px; }
+.hero-mock-bubble.ai .hero-mock-tag { display: block; margin-top: 6px; color: rgba(255,255,255,0.85); }
+
+.hero-mock-mail-line { font-size: 13.5px; color: rgba(0,0,0,0.7); font-style: italic; margin: 0 0 14px; }
+.hero-mock-tag { font-size: 11px; font-weight: 600; }
+.hero-mock-mail .hero-mock-tag.orange {
+  display: inline-block;
+  background: rgba(255,103,17,0.12);
+  color: var(--orange);
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
 }
 
 /* ---- Logo strip ---- */
@@ -823,6 +876,10 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
      que badges et textes démarrent tous à la même position. */
   .hero-stats { flex-direction: column; align-items: center; gap: 22px; }
   .stat { width: 100%; max-width: 300px; }
+
+  .hero-visual { aspect-ratio: auto; flex-direction: column; padding: 36px 20px; gap: 20px; }
+  .hero-mock { width: 100%; max-width: 300px; transform: none; }
+  .hero-mock-mail { margin-top: 0; }
 
   .logo-strip .container { flex-direction: column; align-items: flex-start; gap: 16px; }
   .logo-strip .marks { width: 100%; }
