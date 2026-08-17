@@ -560,6 +560,29 @@ header.site {
 .pack-stack-item:nth-child(2) { z-index: 2; }
 .pack-stack-item:nth-child(3) { z-index: 3; }
 
+/* Le scroll empilé n'a de sens que sur les écrans où l'on scrolle
+   "en hauteur" section par section (mobile/tablette). Sur desktop, la
+   page est assez large pour tout montrer d'un coup : on revient aux
+   3 cartes classiques côte à côte. */
+@media (min-width: 981px) {
+  .pack-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: none;
+  }
+  .pack-stack-item {
+    position: static;
+    top: auto;
+    z-index: auto;
+  }
+  .pack-stack-item .pricing-card {
+    height: 100%;
+    box-shadow: none;
+  }
+  .pack-stack-item .pricing-card:not(.featured) { background: none; }
+}
+
 /* ---- Offer stack (teaser scroll empilé, page d'accueil) ---- */
 .offer-stack {
   display: flex;
@@ -599,6 +622,25 @@ header.site {
 .offer-item.featured .offer-price small { color: rgba(255,255,255,0.55); }
 .offer-hint { font-size: 13.5px; color: rgba(0,0,0,0.55); margin-top: 4px; }
 .offer-item.featured .offer-hint { color: rgba(255,255,255,0.65); }
+
+/* Même logique que le pack-stack de tarifs.html : le scroll empilé reste
+   sur mobile/tablette, desktop revient aux 3 cartes côte à côte. */
+@media (min-width: 981px) {
+  .offer-stack {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: none;
+  }
+  .offer-stack-item {
+    position: static;
+    top: auto;
+    min-height: auto;
+    display: block;
+    z-index: auto;
+  }
+  .offer-item { height: 100%; }
+}
 
 /* ---- FAQ ---- */
 .faq-item { border-top: 1px solid rgba(0,0,0,0.1); }
