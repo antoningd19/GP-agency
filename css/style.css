@@ -485,6 +485,28 @@ header.site {
 .pricing-card li::before { content: '✓'; color: var(--blue); font-weight: 700; }
 .pricing-card.featured li::before { color: var(--orange); }
 
+/* ---- Pack stack (scroll empilé, page tarifs) ---- */
+.pack-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.pack-stack-item {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.pack-stack-item .pricing-card {
+  height: auto;
+  box-shadow: 0 30px 70px -24px rgba(0,0,0,0.28);
+}
+.pack-stack-item .pricing-card:not(.featured) { background: var(--paper); }
+.pack-stack-item .pricing-card.featured { box-shadow: 0 30px 70px -20px rgba(0,33,255,0.3); }
+.pack-stack-item:nth-child(1) { z-index: 1; }
+.pack-stack-item:nth-child(2) { z-index: 2; }
+.pack-stack-item:nth-child(3) { z-index: 3; }
+
 /* ---- Offer strip (teaser compact, page d'accueil) ---- */
 .offer-strip {
   display: flex;
