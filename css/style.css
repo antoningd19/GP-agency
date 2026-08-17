@@ -243,8 +243,29 @@ header.site {
 
 .nav-cta { display: flex; align-items: center; gap: 16px; }
 
-.nav-toggle { display: none; flex-direction: column; gap: 5px; }
-.nav-toggle span { width: 24px; height: 2px; background: var(--ink); }
+.nav-links-cta { display: none; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  position: relative;
+  z-index: 210;
+}
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+  margin: 0 auto;
+  transition: transform .35s var(--ease-out-quart), opacity .35s var(--ease-out-quart);
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---- Hero ---- */
 .hero { padding: 80px 0 60px; text-align: center; }
@@ -635,8 +656,65 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
 }
 
 @media (max-width: 760px) {
-  .nav-links, .nav-cta .btn-outline, .nav-cta .btn-orange { display: none; }
+  .nav-cta { display: none; }
   .nav-toggle { display: flex; }
+  .logo { position: relative; z-index: 210; }
+
+  /* position: fixed avec top/bottom simples se casse ici : header.site a un
+     backdrop-filter, ce qui en fait le containing block des descendants fixed
+     (au lieu du viewport). On ancre donc en top:0/height:100vh (le header est
+     lui-même collé en haut sur toute la largeur, donc ses bords coïncident
+     avec ceux du viewport) et on pousse le contenu sous le header via padding. */
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 2px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 90;
+    padding: calc(var(--nav-h) + 8px) 32px 40px;
+    background: var(--paper);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-16px);
+    transition: opacity .4s var(--ease-out-quart), transform .4s var(--ease-out-quart), visibility 0s linear .4s;
+  }
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity .4s var(--ease-out-quart), transform .4s var(--ease-out-quart), visibility 0s;
+  }
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 8vw, 36px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-align: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .nav-links a.active { color: var(--blue); }
+
+  .nav-links-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 28px;
+    flex-shrink: 0;
+  }
+  .nav-links-cta .btn { width: 100%; padding: 18px 24px; font-size: 15px; }
+
+  body.menu-open { overflow: hidden; }
+
   .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
   .section { padding: 64px 0; }
   .cta-banner { padding: 48px 28px; }

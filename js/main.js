@@ -1,13 +1,43 @@
 // GP Agency — interactions front (aucun backend : à brancher plus tard)
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile nav toggle
+  // Mobile nav toggle : drawer plein écran avec liens + CTA, verrouillage du
+  // scroll, fermeture au clic sur un lien, à la touche Échap ou au repassage
+  // en largeur desktop.
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   if (toggle && links) {
+    const openMenu = () => {
+      links.classList.add('open');
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Fermer le menu');
+      document.body.classList.add('menu-open');
+    };
+    const closeMenu = () => {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      document.body.classList.remove('menu-open');
+    };
+
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'nav-links');
+
     toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
-      links.style.display = links.classList.contains('open') ? 'flex' : '';
+      if (links.classList.contains('open')) closeMenu();
+      else openMenu();
+    });
+
+    links.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && links.classList.contains('open')) closeMenu();
+    });
+
+    window.matchMedia('(min-width: 761px)').addEventListener('change', (e) => {
+      if (e.matches) closeMenu();
     });
   }
 
