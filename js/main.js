@@ -167,4 +167,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     requestAnimationFrame(animateDot);
   }
+
+  // Rappel sticky de l'offre de lancement : apparaît une fois le Hero
+  // dépassé, reste fermé pour le reste de la session si l'utilisateur le ferme.
+  const launchSticky = document.querySelector('#launch-sticky');
+  if (launchSticky) {
+    const closeBtn = launchSticky.querySelector('.launch-sticky-close');
+    const alreadyClosed = sessionStorage.getItem('launchStickyClosed') === '1';
+
+    if (alreadyClosed) {
+      launchSticky.classList.add('closed');
+    } else {
+      const revealThreshold = 600;
+      const toggleVisibility = () => {
+        launchSticky.classList.toggle('visible', window.scrollY > revealThreshold);
+      };
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+      toggleVisibility();
+
+      closeBtn?.addEventListener('click', () => {
+        launchSticky.classList.remove('visible');
+        launchSticky.classList.add('closed');
+        sessionStorage.setItem('launchStickyClosed', '1');
+      });
+    }
+  }
 });
