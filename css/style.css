@@ -631,6 +631,31 @@ header.site {
 .offer-hint { font-size: 13.5px; color: rgba(0,0,0,0.55); margin-top: 4px; }
 .offer-item.featured .offer-hint { color: rgba(255,255,255,0.65); }
 
+/* ---- Deal (offre-lancement.html) : steps + mini-cartes tarifs à -45% ---- */
+.deal-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px 56px;
+  align-items: start;
+}
+.deal-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.offer-item.compact {
+  padding: 20px 24px;
+  gap: 4px;
+  box-shadow: 0 20px 40px -18px rgba(0,0,0,0.2);
+}
+.offer-item.compact.featured { box-shadow: 0 20px 44px -16px rgba(0,33,255,0.32); }
+.offer-item.compact .offer-price { font-size: 21px; }
+.offer-item.compact .offer-price s { font-size: 14px; font-weight: 400; opacity: 0.55; margin-right: 4px; text-decoration-thickness: 1px; }
+.offer-item.compact .offer-price small { display: block; margin-top: 2px; }
+@media (max-width: 980px) {
+  .deal-grid { grid-template-columns: 1fr; }
+}
+
 /* Même logique que le pack-stack de tarifs.html : le scroll empilé reste
    sur mobile/tablette, desktop revient aux 3 cartes côte à côte. */
 @media (min-width: 981px) {
