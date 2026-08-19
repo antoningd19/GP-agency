@@ -1000,7 +1000,7 @@ footer.site { background: var(--ink); color: #fff; padding: 80px 0 32px; }
   text-decoration: none;
 }
 .launch-sticky-badge {
-  background: var(--orange);
+  background: linear-gradient(135deg, var(--blue) 0%, #000d66 100%);
   color: #fff;
   font-family: var(--font-display);
   font-weight: 600;
