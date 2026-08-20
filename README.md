@@ -19,7 +19,9 @@ Le site convertit un visiteur hôtelier en rendez-vous de diagnostic gratuit de 
 Site statique, sans framework ni backend.
 
 ```
-index.html              Page d'accueil
+accueil.html             Page d'accueil
+index.html               Redirection vers accueil.html (racine du domaine, requis par GitHub Pages)
+vercel.json              Rewrite "/" -> accueil.html (utilisé uniquement en cas de déploiement Vercel)
 services.html            Détail des 3 automatisations
 tarifs.html               Packs Starter, Pro, Signature
 offre-lancement.html     Page dédiée à l'offre -45%

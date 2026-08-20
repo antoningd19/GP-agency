@@ -758,7 +758,7 @@ a.stat.stat-link:hover .label strong { text-decoration-color: var(--ink); }
 /* ---- Cost of inaction callout ---- */
 .cost-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
 .cost-callout {
-  background: var(--ink);
+  background: linear-gradient(135deg, var(--orange) 0%, #661f00 100%);
   color: #fff;
   border-radius: var(--radius-lg);
   padding: 48px;
