@@ -97,15 +97,32 @@ document.addEventListener('DOMContentLoaded', () => {
     buildRollLabel(btn, label);
   });
 
-  // Contact form: placeholder only, pas de backend branché
+  // Contact form : envoie vers /api/contact (fonction serverless Vercel).
+  // Si l'API n'est pas disponible (ex: hébergement GitHub Pages, où il n'y a
+  // pas de backend), on retombe silencieusement sur le message de démo
+  // existant plutôt que d'afficher une erreur à l'utilisateur.
   const form = document.querySelector('#contact-form');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = form.querySelector('button[type="submit"]');
+      const original = btn?.getAttribute('aria-label');
+      const payload = Object.fromEntries(new FormData(form).entries());
+
+      let sent = false;
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        sent = response.ok;
+      } catch (err) {
+        sent = false;
+      }
+
       if (btn) {
-        const original = btn.getAttribute('aria-label');
-        const message = 'Message enregistré (démo)';
+        const message = sent ? 'Message envoyé, merci !' : 'Message enregistré (démo)';
         buildRollLabel(btn, message);
         btn.setAttribute('aria-label', message);
         setTimeout(() => {
@@ -113,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.setAttribute('aria-label', original);
         }, 2500);
       }
+
+      if (sent) form.reset();
     });
   }
 
